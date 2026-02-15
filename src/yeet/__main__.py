@@ -2,14 +2,47 @@
 
 from __future__ import annotations
 
+import random
 import sys
 
 import click
+import pyfiglet
 
 from yeet.cleaner import delete_files
 from yeet.config import CONFIG_PATHS, THEMES, get_config
 from yeet.finder import find_related_files, format_size
 from yeet.scanner import find_application, scan_applications
+
+# Curated list of fonts that look good with "yeet"
+BANNER_FONTS = [
+    "slant",
+    "small",
+    "smslant",
+    "standard",
+    "big",
+    "doom",
+    "banner",
+    "block",
+    "lean",
+    "mini",
+    "script",
+    "shadow",
+    "speed",
+    "starwars",
+    "stop",
+    "thick",
+]
+
+
+def _print_banner() -> None:
+    """Print a random ASCII art banner."""
+    font = random.choice(BANNER_FONTS)
+    try:
+        banner = pyfiglet.figlet_format("yeet", font=font)
+        click.echo(click.style(banner.rstrip(), fg="magenta"))
+    except Exception:
+        # Fallback if font fails
+        click.echo(click.style("🚀 yeet", fg="magenta", bold=True))
 
 
 @click.command()
@@ -75,11 +108,13 @@ def main(
     """
     # Init config mode
     if init:
+        _print_banner()
         _init_config()
         return
 
     # List themes mode
     if themes:
+        _print_banner()
         config = get_config()
         click.echo("Available themes:\n")
         for name in THEMES:
@@ -90,6 +125,7 @@ def main(
 
     # List mode
     if list_apps:
+        _print_banner()
         apps = scan_applications()
         click.echo(f"Found {len(apps)} applications:\n")
         for app in apps:
@@ -117,6 +153,7 @@ def main(
         sys.exit(1)
 
     # Scan for related files
+    _print_banner()
     click.echo(f"Scanning for files related to {app.display_name}...")
     result = find_related_files(app)
 
