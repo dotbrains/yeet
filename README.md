@@ -99,6 +99,33 @@ yeet searches these locations for files matching the app name or bundle identifi
 | `Escape` | Go back / Clear |
 | `q` | Quit |
 
+## Configuration
+
+Create a config file to customize yeet:
+
+```bash
+yeet --init
+```
+
+This creates `~/.config/yeet/config.toml`:
+
+```toml
+[appearance]
+# Available themes: default, dracula, nord, catppuccin, gruvbox, light
+theme = "dracula"
+
+[behavior]
+confirm_delete = true
+default_permanent = false
+include_system_apps = false
+```
+
+See available themes:
+
+```bash
+yeet --themes
+```
+
 ## Safety
 
 - **Trash by default**: Files are moved to Trash and can be recovered

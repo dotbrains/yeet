@@ -7,6 +7,7 @@ import sys
 import click
 
 from yeet.cleaner import delete_files
+from yeet.config import CONFIG_PATHS, THEMES, get_config
 from yeet.finder import find_related_files, format_size
 from yeet.scanner import find_application, scan_applications
 
@@ -38,6 +39,16 @@ from yeet.scanner import find_application, scan_applications
     is_flag=True,
     help="List all installed applications.",
 )
+@click.option(
+    "--init",
+    is_flag=True,
+    help="Create a default config file at ~/.config/yeet/config.toml",
+)
+@click.option(
+    "--themes",
+    is_flag=True,
+    help="List available themes.",
+)
 @click.version_option()
 def main(
     app_name: str | None,
@@ -46,6 +57,8 @@ def main(
     yes: bool,
     permanent: bool,
     list_apps: bool,
+    init: bool,
+    themes: bool,
 ) -> None:
     """🚀 yeet - Remove macOS apps completely.
 
@@ -60,6 +73,21 @@ def main(
         yeet Slack --delete     # Delete Slack and related files
         yeet --list             # List all installed apps
     """
+    # Init config mode
+    if init:
+        _init_config()
+        return
+
+    # List themes mode
+    if themes:
+        config = get_config()
+        click.echo("Available themes:\n")
+        for name in THEMES:
+            marker = " (active)" if name == config.theme else ""
+            click.echo(f"  • {name}{marker}")
+        click.echo(f"\nConfig file: {CONFIG_PATHS[0]}")
+        return
+
     # List mode
     if list_apps:
         apps = scan_applications()
@@ -143,6 +171,48 @@ def main(
     # Default: launch TUI with the app selected
     from yeet.tui.app import run_tui
     run_tui(app_name=app.display_name)
+
+
+def _init_config() -> None:
+    """Create a default config file."""
+    config_path = CONFIG_PATHS[0]  # ~/.config/yeet/config.toml
+
+    if config_path.exists():
+        click.echo(f"Config file already exists: {config_path}")
+        if not click.confirm("Overwrite?"):
+            return
+
+    # Create directory if needed
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Write default config
+    default_config = '''# yeet configuration file
+# Documentation: https://github.com/dotbrains/yeet
+
+[appearance]
+# Available themes: default, dracula, nord, catppuccin, gruvbox, light
+theme = "default"
+
+# Override specific colors (optional)
+# [appearance.colors]
+# primary = "#7C3AED"
+# accent = "#10B981"
+
+[behavior]
+# Ask for confirmation before deleting
+confirm_delete = true
+
+# Use permanent delete (skip Trash) by default
+default_permanent = false
+
+# Include apps from /System/Applications
+include_system_apps = false
+'''
+
+    config_path.write_text(default_config)
+    click.echo(f"✓ Created config file: {config_path}")
+    click.echo("\nEdit this file to customize yeet.")
+    click.echo("Use 'yeet --themes' to see available themes.")
 
 
 if __name__ == "__main__":

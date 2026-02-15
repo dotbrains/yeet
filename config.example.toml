@@ -1,0 +1,35 @@
+# yeet configuration file
+# Copy to ~/.config/yeet/config.toml or ~/.yeetrc
+
+[appearance]
+# Available themes: default, dracula, nord, catppuccin, gruvbox, light
+theme = "default"
+
+# Override specific colors (optional)
+# [appearance.colors]
+# primary = "#7C3AED"
+# secondary = "#A78BFA"
+# accent = "#10B981"
+# warning = "#F59E0B"
+# error = "#EF4444"
+# surface = "#1E1E2E"
+# background = "#11111B"
+
+[behavior]
+# Ask for confirmation before deleting
+confirm_delete = true
+
+# Use permanent delete (skip Trash) by default
+default_permanent = false
+
+# Include apps from /System/Applications
+include_system_apps = false
+
+# Scan /Library locations (requires sudo)
+scan_system_locations = false
+
+# [paths]
+# Additional locations to search for app files
+# extra_search = [
+#     "~/Library/SomeCustomLocation",
+# ]

@@ -10,14 +10,31 @@ from textual import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical, VerticalScroll
+from textual.design import ColorSystem
 from textual.widgets import Footer, Header, Input, ListView, Static
 
 from yeet.cleaner import check_running_process, delete_files, quit_application
+from yeet.config import get_config
 from yeet.finder import find_related_files
 from yeet.models import FinderResult, format_size
 from yeet.scanner import Application, scan_applications
 from yeet.tui.screens import ConfirmScreen, ResultScreen
 from yeet.tui.widgets import AppListItem, FileListItem
+
+
+def _create_color_system(colors: dict[str, str]) -> ColorSystem:
+    """Create a Textual ColorSystem from theme colors."""
+    return ColorSystem(
+        primary=colors.get("primary", "#7C3AED"),
+        secondary=colors.get("secondary", "#A78BFA"),
+        accent=colors.get("accent", "#10B981"),
+        warning=colors.get("warning", "#F59E0B"),
+        error=colors.get("error", "#EF4444"),
+        success=colors.get("accent", "#10B981"),
+        background=colors.get("background", "#11111B"),
+        surface=colors.get("surface", "#1E1E2E"),
+        panel=colors.get("surface", "#1E1E2E"),
+    )
 
 
 class YeetApp(App):
@@ -45,6 +62,8 @@ class YeetApp(App):
         self.selected_app: Application | None = None
         self.finder_result: FinderResult | None = None
         self.file_items: dict[Path, FileListItem] = {}
+        self.user_config = get_config()
+        self._apply_theme()
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -61,6 +80,15 @@ class YeetApp(App):
                 )
                 yield Static("", id="file-summary")
         yield Footer()
+
+    def _apply_theme(self) -> None:
+        """Apply the theme from user config."""
+        colors = self.user_config.get_theme_colors()
+        self.design = _create_color_system(colors)
+
+        # Apply light/dark mode based on theme
+        if self.user_config.theme == "light":
+            self.dark = False
 
     def on_mount(self) -> None:
         """Load applications when the app starts."""
