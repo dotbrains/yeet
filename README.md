@@ -1,0 +1,116 @@
+# 🚀 yeet
+
+A TUI/CLI tool to completely remove macOS applications and all their related files — like AppCleaner, but in your terminal.
+
+## Features
+
+- **Complete removal**: Finds and removes app bundles, preferences, caches, containers, logs, and more
+- **Beautiful TUI**: Interactive terminal interface with keyboard navigation
+- **CLI mode**: Script-friendly command-line interface for automation
+- **Safe by default**: Moves files to Trash (recoverable) unless `--permanent` is specified
+- **Dry run**: Preview what would be deleted before committing
+
+## Installation
+
+```bash
+# Using pip
+pip install .
+
+# Or with pipx (recommended)
+pipx install .
+
+# For development
+pip install -e .
+```
+
+## Usage
+
+### TUI Mode (Interactive)
+
+Launch the interactive interface:
+
+```bash
+yeet
+```
+
+- Use `/` to search apps
+- Navigate with arrow keys or `j`/`k`
+- Press `Enter` to select an app
+- Press `Space` to toggle files
+- Press `d` to delete selected files
+- Press `q` to quit
+
+### CLI Mode
+
+```bash
+# List all installed applications
+yeet --list
+
+# Show files related to an app (dry run)
+yeet Slack --dry-run
+
+# Delete an app and all related files
+yeet Slack --delete
+
+# Delete without confirmation
+yeet Slack --delete --yes
+
+# Permanently delete (skip Trash)
+yeet Slack --delete --permanent
+```
+
+## What Gets Removed
+
+yeet searches these locations for files matching the app name or bundle identifier:
+
+**User Library** (`~/Library/`):
+- Application Support
+- Caches
+- Preferences (`.plist` files)
+- Logs
+- Containers
+- Group Containers
+- Saved Application State
+- LaunchAgents
+- Cookies
+- WebKit
+- HTTPStorages
+- Application Scripts
+
+**System Library** (`/Library/`):
+- Application Support
+- Caches
+- Preferences
+- LaunchAgents
+- LaunchDaemons
+- Logs
+
+## Keyboard Shortcuts (TUI)
+
+| Key | Action |
+|-----|--------|
+| `/` | Focus search |
+| `↑`/`↓` or `j`/`k` | Navigate |
+| `Enter` | Select app |
+| `Space` | Toggle file |
+| `a` | Select all files |
+| `n` | Select no files |
+| `d` | Delete selected |
+| `Escape` | Go back / Clear |
+| `q` | Quit |
+
+## Safety
+
+- **Trash by default**: Files are moved to Trash and can be recovered
+- **Confirmation**: Prompts before deletion (use `--yes` to skip)
+- **Running apps**: Warns if the app is running and offers to quit it
+- **Sudo files**: System-level files that require admin access are marked and skipped by default
+
+## Requirements
+
+- macOS
+- Python 3.10+
+
+## License
+
+MIT
