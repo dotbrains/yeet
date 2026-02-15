@@ -1,4 +1,4 @@
-# 🚀 yeet
+# 🗑️ yeet
 
 ![yeet](https://raw.githubusercontent.com/dotbrains/yeet/main/assets/og-image.svg)
 
