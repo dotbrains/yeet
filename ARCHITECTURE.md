@@ -29,7 +29,7 @@ flowchart TB
     subgraph External["External"]
         FS[File System]
         Trash[Trash - send2trash]
-        Apps[/Applications]
+        Apps[Applications]
     end
     
     CLI --> Core
