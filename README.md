@@ -46,6 +46,8 @@ pip install -e .
 
 ### TUI Mode (Interactive)
 
+![tui](https://raw.githubusercontent.com/dotbrains/yeet/main/assets/tui.png)
+
 Launch the interactive interface:
 
 ```bash
