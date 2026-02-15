@@ -143,6 +143,10 @@ yeet --themes
 - **Running apps**: Warns if the app is running and offers to quit it
 - **Sudo files**: System-level files that require admin access are marked and skipped by default
 
+## Architecture
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed information about the project structure, data flow, and module responsibilities.
+
 ## Requirements
 
 - macOS
