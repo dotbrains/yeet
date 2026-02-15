@@ -20,6 +20,15 @@ A TUI/CLI tool to completely remove macOS applications and all their related fil
 - **Safe by default**: Moves files to Trash (recoverable) unless `--permanent` is specified
 - **Dry run**: Preview what would be deleted before committing
 
+## Architecture
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed information about the project structure, data flow, and module responsibilities.
+
+## Requirements
+
+- macOS
+- Python 3.10+
+
 ## Installation
 
 ```bash
@@ -142,15 +151,6 @@ yeet --themes
 - **Confirmation**: Prompts before deletion (use `--yes` to skip)
 - **Running apps**: Warns if the app is running and offers to quit it
 - **Sudo files**: System-level files that require admin access are marked and skipped by default
-
-## Architecture
-
-See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed information about the project structure, data flow, and module responsibilities.
-
-## Requirements
-
-- macOS
-- Python 3.10+
 
 ## License
 
