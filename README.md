@@ -2,9 +2,6 @@
 
 ![yeet](https://raw.githubusercontent.com/dotbrains/yeet/main/assets/og-image.svg)
 
-[![PyPI version](https://img.shields.io/pypi/v/yeet-cli.svg?color=7C3AED&logo=python)](https://pypi.org/project/yeet-cli/)
-[![Python versions](https://img.shields.io/pypi/pyversions/yeet-cli.svg?color=7C3AED&logo=python)](https://pypi.org/project/yeet-cli/)
-[![License](https://img.shields.io/github/license/dotbrains/yeet.svg)](https://github.com/dotbrains/yeet/blob/main/LICENSE)
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](https://github.com/dotbrains/yeet)
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
