@@ -11,7 +11,7 @@ from textual.containers import Container, Horizontal, Vertical
 from textual.screen import ModalScreen
 from textual.widgets import Button, Label, Static
 
-from yeet.models import format_size
+from yeet.core import format_size
 
 
 class ConfirmScreen(ModalScreen[bool]):

@@ -5,8 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from yeet.config import SEARCH_LOCATIONS
-from yeet.models import FinderResult, RelatedFile, format_size
-from yeet.scanner import Application
+from yeet.core.models import FinderResult, RelatedFile, format_size
+from yeet.core.scanner import Application
 
 # Re-export for backwards compatibility
 __all__ = ["find_related_files", "FinderResult", "RelatedFile", "format_size"]

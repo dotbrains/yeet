@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from yeet.scanner import Application
+    from yeet.core.scanner import Application
 
 
 def format_size(size: int) -> str:

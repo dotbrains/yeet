@@ -13,11 +13,17 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.design import ColorSystem
 from textual.widgets import Footer, Header, Input, ListView, Static
 
-from yeet.cleaner import check_running_process, delete_files, quit_application
 from yeet.config import get_config
-from yeet.finder import find_related_files
-from yeet.models import FinderResult, format_size
-from yeet.scanner import Application, scan_applications
+from yeet.core import (
+    Application,
+    FinderResult,
+    check_running_process,
+    delete_files,
+    find_related_files,
+    format_size,
+    quit_application,
+    scan_applications,
+)
 from yeet.tui.screens import ConfirmScreen, ResultScreen
 from yeet.tui.widgets import AppListItem, FileListItem
 

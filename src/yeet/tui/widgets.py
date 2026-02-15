@@ -8,8 +8,7 @@ from rich.text import Text
 from textual.app import ComposeResult
 from textual.widgets import ListItem, Static
 
-from yeet.models import RelatedFile
-from yeet.scanner import Application
+from yeet.core import Application, RelatedFile
 
 __all__ = ["AppListItem", "FileListItem"]
 
