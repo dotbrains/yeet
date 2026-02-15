@@ -4,31 +4,20 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-from dataclasses import dataclass, field
 from pathlib import Path
 
 from send2trash import send2trash
 
-from yeet.finder import FinderResult, RelatedFile
+from yeet.models import DeletionResult, FinderResult
 
-
-@dataclass
-class DeletionResult:
-    """Result of a deletion operation."""
-
-    successful: list[RelatedFile] = field(default_factory=list)
-    failed: list[tuple[RelatedFile, str]] = field(default_factory=list)
-    skipped: list[RelatedFile] = field(default_factory=list)
-
-    @property
-    def total_freed(self) -> int:
-        """Total bytes freed by successful deletions."""
-        return sum(f.size for f in self.successful)
-
-    @property
-    def all_successful(self) -> bool:
-        """Whether all deletions were successful."""
-        return len(self.failed) == 0
+# Re-export for backwards compatibility
+__all__ = [
+    "delete_file",
+    "delete_files",
+    "check_running_process",
+    "quit_application",
+    "DeletionResult",
+]
 
 
 def delete_file(path: Path, permanent: bool = False, use_sudo: bool = False) -> tuple[bool, str]:

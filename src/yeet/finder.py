@@ -2,115 +2,14 @@
 
 from __future__ import annotations
 
-import os
-from dataclasses import dataclass, field
 from pathlib import Path
 
+from yeet.config import SEARCH_LOCATIONS
+from yeet.models import FinderResult, RelatedFile, format_size
 from yeet.scanner import Application
 
-
-@dataclass
-class RelatedFile:
-    """A file or directory related to an application."""
-
-    path: Path
-    size: int = 0
-    is_dir: bool = False
-    requires_sudo: bool = False
-
-    def __post_init__(self) -> None:
-        if self.size == 0 and self.path.exists():
-            self.size = self._calculate_size()
-
-    def _calculate_size(self) -> int:
-        """Calculate the size of the file or directory."""
-        try:
-            if self.path.is_file():
-                return self.path.stat().st_size
-            elif self.path.is_dir():
-                total = 0
-                for dirpath, _, filenames in os.walk(self.path):
-                    for filename in filenames:
-                        filepath = Path(dirpath) / filename
-                        try:
-                            total += filepath.stat().st_size
-                        except (OSError, PermissionError):
-                            pass
-                return total
-        except (OSError, PermissionError):
-            pass
-        return 0
-
-    @property
-    def size_human(self) -> str:
-        """Return human-readable size."""
-        return format_size(self.size)
-
-
-@dataclass
-class FinderResult:
-    """Result of scanning for related files."""
-
-    app: Application
-    files: list[RelatedFile] = field(default_factory=list)
-
-    @property
-    def total_size(self) -> int:
-        """Total size of all related files."""
-        return sum(f.size for f in self.files)
-
-    @property
-    def total_size_human(self) -> str:
-        """Human-readable total size."""
-        return format_size(self.total_size)
-
-    @property
-    def has_sudo_files(self) -> bool:
-        """Whether any files require sudo to delete."""
-        return any(f.requires_sudo for f in self.files)
-
-
-def format_size(size: int) -> str:
-    """Format a size in bytes to human-readable string."""
-    for unit in ["B", "KB", "MB", "GB", "TB"]:
-        if size < 1024:
-            if unit == "B":
-                return f"{size} {unit}"
-            return f"{size:.1f} {unit}"
-        size /= 1024
-    return f"{size:.1f} PB"
-
-
-# Locations to search for related files
-# Each tuple: (base_path, pattern, requires_sudo)
-# Pattern can use {name}, {bundle_id}, {bundle_id_prefix}
-SEARCH_LOCATIONS: list[tuple[Path, str, bool]] = [
-    # User Library locations
-    (Path.home() / "Library" / "Application Support", "{name}", False),
-    (Path.home() / "Library" / "Application Support", "{bundle_id}", False),
-    (Path.home() / "Library" / "Caches", "{name}", False),
-    (Path.home() / "Library" / "Caches", "{bundle_id}", False),
-    (Path.home() / "Library" / "Preferences", "{bundle_id}.plist", False),
-    (Path.home() / "Library" / "Preferences", "{bundle_id_prefix}.*.plist", False),
-    (Path.home() / "Library" / "Logs", "{name}", False),
-    (Path.home() / "Library" / "Containers", "{bundle_id}", False),
-    (Path.home() / "Library" / "Group Containers", "*{bundle_id}*", False),
-    (Path.home() / "Library" / "Saved Application State", "{bundle_id}.savedState", False),
-    (Path.home() / "Library" / "LaunchAgents", "*{bundle_id}*.plist", False),
-    (Path.home() / "Library" / "Cookies", "{bundle_id}.binarycookies", False),
-    (Path.home() / "Library" / "WebKit", "{name}", False),
-    (Path.home() / "Library" / "HTTPStorages", "{bundle_id}", False),
-    (Path.home() / "Library" / "Application Scripts", "{bundle_id}", False),
-    # System Library locations (require sudo)
-    (Path("/Library/Application Support"), "{name}", True),
-    (Path("/Library/Application Support"), "{bundle_id}", True),
-    (Path("/Library/Caches"), "{name}", True),
-    (Path("/Library/Caches"), "{bundle_id}", True),
-    (Path("/Library/LaunchAgents"), "*{bundle_id}*.plist", True),
-    (Path("/Library/LaunchDaemons"), "*{bundle_id}*.plist", True),
-    (Path("/Library/Preferences"), "{bundle_id}.plist", True),
-    (Path("/Library/Logs"), "{name}", True),
-]
+# Re-export for backwards compatibility
+__all__ = ["find_related_files", "FinderResult", "RelatedFile", "format_size"]
 
 
 def _match_pattern(base_path: Path, pattern: str) -> list[Path]:
