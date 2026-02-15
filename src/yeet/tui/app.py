@@ -21,15 +21,15 @@ from yeet.scanner import Application, scan_applications
 class AppListItem(ListItem):
     """A list item representing an application."""
 
-    def __init__(self, app: Application, **kwargs) -> None:
+    def __init__(self, application: Application, **kwargs) -> None:
         super().__init__(**kwargs)
-        self.app = app
+        self.application = application
 
     def compose(self) -> ComposeResult:
         text = Text()
-        text.append(self.app.display_name, style="bold")
-        if self.app.version:
-            text.append(f"  v{self.app.version}", style="dim")
+        text.append(self.application.display_name, style="bold")
+        if self.application.version:
+            text.append(f"  v{self.application.version}", style="dim")
         yield Static(text)
 
 
@@ -311,7 +311,7 @@ class YeetApp(App):
     def on_app_selected(self, event: ListView.Selected) -> None:
         """Handle app selection from the list."""
         if isinstance(event.item, AppListItem):
-            self.select_application(event.item.app)
+            self.select_application(event.item.application)
 
     def select_application(self, app: Application) -> None:
         """Select an application and scan for related files."""
@@ -447,7 +447,7 @@ class YeetApp(App):
             if app_list.highlighted_child and isinstance(
                 app_list.highlighted_child, AppListItem
             ):
-                self.select_application(app_list.highlighted_child.app)
+                self.select_application(app_list.highlighted_child.application)
         except Exception:
             pass
 
