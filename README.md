@@ -3,6 +3,7 @@
 ![yeet](https://raw.githubusercontent.com/dotbrains/yeet/main/assets/og-image.svg)
 
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](https://github.com/dotbrains/yeet)
+[![License: PolyForm Shield 1.0.0](https://img.shields.io/badge/License-PolyForm%20Shield%201.0.0-blue.svg)](https://polyformproject.org/licenses/shield/1.0.0/)
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![macOS](https://img.shields.io/badge/-macOS-000000?style=flat-square&logo=apple&logoColor=white)
