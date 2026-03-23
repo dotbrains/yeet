@@ -7,7 +7,7 @@ name = "yeet"
 version = "0.1.0"
 description = "A TUI/CLI tool to completely remove macOS applications and their remnants"
 readme = "README.md"
-license = "MIT"
+license = "PolyForm-Shield-1.0.0"
 requires-python = ">=3.10"
 authors = [
     { name = "Nicholas" }
