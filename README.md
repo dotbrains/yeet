@@ -1,8 +1,8 @@
 # 🗑️ yeet
 
-![yeet](https://raw.githubusercontent.com/dotbrains/yeet/main/assets/og-image.svg)
+![yeet](https://raw.githubusercontent.com/smeltery/yeet/main/assets/og-image.svg)
 
-[![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](https://github.com/dotbrains/yeet)
+[![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](https://github.com/smeltery/yeet)
 [![License: PolyForm Shield 1.0.0](https://img.shields.io/badge/License-PolyForm%20Shield%201.0.0-blue.svg)](https://polyformproject.org/licenses/shield/1.0.0/)
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
@@ -47,7 +47,7 @@ pip install -e .
 
 ### TUI Mode (Interactive)
 
-![tui](https://raw.githubusercontent.com/dotbrains/yeet/main/assets/tui.png)
+![tui](https://raw.githubusercontent.com/smeltery/yeet/main/assets/tui.png)
 
 Launch the interactive interface:
 

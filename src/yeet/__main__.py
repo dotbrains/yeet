@@ -196,7 +196,7 @@ def _init_config() -> None:
 
     # Write default config
     default_config = '''# yeet configuration file
-# Documentation: https://github.com/dotbrains/yeet
+# Documentation: https://github.com/smeltery/yeet
 
 [appearance]
 # Available themes: default, dracula, nord, catppuccin, gruvbox, light

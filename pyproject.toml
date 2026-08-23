@@ -39,8 +39,8 @@ dependencies = [
 yeet = "yeet.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/dotbrains/yeet"
-Repository = "https://github.com/dotbrains/yeet"
+Homepage = "https://github.com/smeltery/yeet"
+Repository = "https://github.com/smeltery/yeet"
 
 [project.optional-dependencies]
 dev = [
